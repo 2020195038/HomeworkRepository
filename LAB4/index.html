@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Information</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div class="container">
+    <header class="slide-wrapper">
+        <h1 class="site-title">영화 정보 사이트입니다</h1>
+    </header>
+      
+
+    <nav class="navbar">
+      <a href="index.html">메인페이지</a>
+      <a href="login.html">로그인</a>
+      <a href="signup.html">회원가입</a>
+    </nav>
+
+    <main class="main-content">
+  <section class="controls">
+  <input type="text" id="searchInput" placeholder="Search by title..." />
+  <select id="sortSelect">
+    <option value="">Sort</option>
+    <option value="title-asc">Title ↑</option>
+    <option value="title-desc">Title ↓</option>
+    <option value="rating-asc">Rating ↑</option>
+    <option value="rating-desc">Rating ↓</option>
+  </select>
+</section>
+
+  <section class="movies-section">
+    <h2>Movies</h2>
+    <div class="movies-group">
+
+    </div>
+  </section>
+
+      <section class="about-section">
+        <h2>About</h2>
+        <p>인터넷프로그래밍 영화 소개 사이트입니다.</p>
+      </section>
+    </main>
+  </div>
+
+
+<script>
+  let allMovies = [];
+  let filteredMovies = [];
+  let currentIndex = 0;
+  const BATCH_SIZE = 5;
+
+  function createMovieCard(movie) {
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+
+    const img = document.createElement('img');
+    img.src = movie.image;
+    img.alt = movie.title;
+    img.className = 'movie-image';
+
+    const title = document.createElement('div');
+    title.className = 'movie-title';
+    title.textContent = movie.title;
+
+    const rating = document.createElement('div');
+    rating.className = 'movie-rating';
+    rating.textContent = `Rating: ${movie.rating}`;
+
+    const release = document.createElement('div');
+    release.className = 'movie-release';
+    release.textContent = `Release Date: ${movie.releaseDate}`;
+
+    const overview = document.createElement('div');
+    overview.className = 'movie-overview';
+    overview.textContent = movie.overview;
+
+    card.addEventListener('mouseover', () => {
+      overview.style.display = 'block';
+    });
+
+    card.addEventListener('mouseout', () => {
+      overview.style.display = 'none';
+    });
+
+    card.appendChild(img);
+    card.appendChild(title);
+    card.appendChild(rating);
+    card.appendChild(release);
+    card.appendChild(overview);
+
+    return card;
+  }
+
+  function clearMovies() {
+    document.querySelector('.movies-group').innerHTML = '';
+    currentIndex = 0;
+  }
+
+  function loadBatch() {
+    const group = document.querySelector('.movies-group');
+    const batch = filteredMovies.slice(currentIndex, currentIndex + BATCH_SIZE);
+    batch.forEach(movie => {
+      const card = createMovieCard(movie);
+      group.appendChild(card);
+    });
+    currentIndex += BATCH_SIZE;
+  }
+
+  function checkScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (currentIndex < filteredMovies.length) {
+        loadBatch();
+      }
+    }
+  }
+
+  function applyFiltersAndSort() {
+    const keyword = document.getElementById('searchInput').value.toLowerCase();
+    const sortValue = document.getElementById('sortSelect').value;
+
+    
+    filteredMovies = allMovies.filter(movie =>
+      movie.title.toLowerCase().includes(keyword)
+    );
+
+    
+    if (sortValue === 'title-asc') {
+      filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortValue === 'title-desc') {
+      filteredMovies.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (sortValue === 'rating-asc') {
+      filteredMovies.sort((a, b) => a.rating - b.rating);
+    } else if (sortValue === 'rating-desc') {
+      filteredMovies.sort((a, b) => b.rating - a.rating);
+    }
+
+    clearMovies();
+    loadBatch();
+  }
+
+  
+  function setupSearchAndSort() {
+    document.getElementById('searchInput').addEventListener('input', applyFiltersAndSort);
+    document.getElementById('sortSelect').addEventListener('change', applyFiltersAndSort);
+  }
+
+
+  fetch('product.json')
+    .then(res => res.json())
+    .then(data => {
+    allMovies = data;
+    setupSearchAndSort();
+    applyFiltersAndSort();  
+    window.addEventListener('scroll', checkScroll);
+    loadBatch(); });
+</script>
+
+</body>
+</html>
