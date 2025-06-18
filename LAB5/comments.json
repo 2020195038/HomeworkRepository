@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "movie_id": 1,
+    "comment_text": "test!!!!!!!!!!!!!!!!",
+    "rating": 4,
+    "timestamp": "2025-06-18T18:29:18.028Z"
+  },
+  {
+    "id": 2,
+    "movie_id": 19,
+    "comment_text": "!!!!!!!!!!!!!!!!!!!",
+    "rating": 9,
+    "timestamp": "2025-06-18T18:35:08.937Z"
+  },
+  {
+    "id": 3,
+    "movie_id": 1,
+    "comment_text": "dsdssa",
+    "rating": 9,
+    "timestamp": "2025-06-18T18:49:50.031Z"
+  },
+  {
+    "id": 4,
+    "movie_id": 2,
+    "comment_text": "주만지 후기",
+    "rating": 4,
+    "timestamp": "2025-06-18T18:53:53.919Z"
+  }
+]

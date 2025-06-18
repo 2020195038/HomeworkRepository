@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Page</title>
+  <link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+  <div class="signup">
+    <h1>Signup</h1>
+    <h2><span class="signup"></span></h2>
+    <form action="/login" method="get">
+      <p><a href="/login">Go to log in</a>
+      <a href="/">Back to Main</a></p>
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required autofocus><br><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" autocomplete="on"><br><br>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob"><br><br>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" step="1"><br><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Choose a password"><br><br>
+
+      <p>Gender:</p>
+      <div class="radio-group">
+        <span>
+          <input type="radio" id="male" name="gender" value="Male" required>
+          <label for="male">Male</label>
+        </span>
+        <span>
+          <input type="radio" id="female" name="gender" value="Female">
+          <label for="female">Female</label>
+        </span>
+        <span>
+          <input type="radio" id="other" name="gender" value="Other">
+          <label for="other">Other</label>
+        </span>
+      </div><br><br>
+
+      <label for="college">College:</label> 
+      <select id="college" name="college" required>
+        <option value="">Select your college</option>
+        <option value="engineering">Engineering</option>
+        <option value="econ">Economics and Commerce</option>
+        <option value="sc">Social science</option>
+        <option value="md">Medicine</option>
+        <option value="science">Science</option>
+      </select><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
